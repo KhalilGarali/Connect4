@@ -1,0 +1,127 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+
+:root{
+    --cell-size:90px;
+    --mark-size:calc(var(--cell-size)* .9);
+}
+body{
+    margin: 0;
+    background-color: lightgray;
+}
+.board{
+    width: 100vw;
+    height: 80vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(7,auto);
+}
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: blue;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell.red,
+.cell.yellow{
+    cursor:not-allowed;
+}
+
+.cell.red::before,
+.cell.red::after{
+background-color: red;
+}
+.cell.yellow::before,
+.cell.cell.yellow::after{
+    background-color: yellow;
+}
+
+.board.red .cell:not(.red):not(.yellow):hover::before,
+.board.red .cell:not(.red):not(.yellow):hover::after{
+    background-color:rgb(240, 167, 167);
+}
+.board.yellow .cell:not(.red):not(.yellow):hover::before,
+.board.yellow .cell:not(.red):not(.yellow):hover::after{
+    background-color: rgb(241, 241, 154);
+}
+
+
+.cell.red::before,
+.cell.red::after,
+.board.red .cell:not(.red):not(.yellow):hover::before,
+.board.red .cell:not(.red):not(.yellow):hover::after{
+    content: '';
+    position: absolute;
+    height:var(--mark-size);
+    width: var(--mark-size);
+    border-radius: 50%;
+    
+}
+.cell.yellow::before,
+.cell.yellow::after,
+.baord.yellow .cell:not(.red):not(.yellow):hover::before,
+.board.yellow .cell:not(.red):not(.yellow):hover::after{
+    content: '';
+    position: absolute;
+    height:var(--mark-size);
+    width: var(--mark-size);
+    border-radius: 50%;
+    
+}
+.winningMessage{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+.winningMessage button{
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+}
+.winningMessage button:hover{
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+.winningMessage.show{
+    display: flex;
+}
+
+/* apart from the grid*/
+h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0;
+    
+}
+h2{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.cell.limit{
+    display: none;
+}
