@@ -1,10 +1,14 @@
 const RED_CLASS = 'red';
 const YELLOW_CLASS = 'yellow';
 const cellElements = document.querySelectorAll('[data-cell]');
+const cellGrid = [...document.querySelectorAll('[data-cell]')];
 const board = document.getElementById('board');
 const winningMessageContent = document.querySelector('[data-winning-message-text]');
 const winningMessageElement = document.getElementById("winningMessage");
 const restartButton = document.getElementById("restartButton");
+const cellInGrid =[];
+while(cellGrid.length) cellInGrid.push(cellGrid.splice(0,7));
+console.log(cellInGrid);
 const WINNING_COMBINATION =[
 [0, 1, 2, 3], [41, 40, 39, 38],[7, 8, 9, 10], 
 [34, 33, 32, 31], [14, 15, 16, 17], [27, 26, 25, 24], 
@@ -45,12 +49,15 @@ restartButton.addEventListener('click', startGame)
 
 function startGame(){
     redTurn = false;
-    cellElements.forEach(cell =>{
-        cell.classList.remove(RED_CLASS);
-        cell.classList.remove(YELLOW_CLASS);
-        cell.removeEventListener('click', handleClick);
-        cell.addEventListener('click', handleClick, {once:true})
-    });
+    //cellElements.forEach(cell =>{
+    for(var i=0; i<42; i++){
+        cellElements[i].classList.remove(RED_CLASS);
+        cellElements[i].classList.remove(YELLOW_CLASS);
+        cellElements[i].removeEventListener('click', handleClick);
+        cellElements[i].addEventListener('click', handleClick, {once:true})
+    }
+        
+    //});
     setBoardHoverClass();
     winningMessageElement.classList.remove('show');
 
@@ -61,7 +68,7 @@ function handleClick(e){
     //placePiece
     const cell = e.target;
     const currentPlayer = redTurn ? YELLOW_CLASS : RED_CLASS;
-    placePiece(cell, currentPlayer);
+    placePiece(cell, currentPlayer, );
     if(checkWinner(currentPlayer)){
         endGame(false);
     }
@@ -93,9 +100,25 @@ function isDraw(){
 }
 
 function placePiece(cell, currentPlayer){
-    cell.classList.add(currentPlayer);
-        
+   /*for(var i=0; i<42; i++){
+            if((cell[i+7].classList.contains(YELLOW_CLASS)) || (cell[i+7].classList.contains(RED_CLASS))){
+                cell.classList.add(currentPlayer);
+            }
+        }
+
+    
+        for(var i=6; i>=0;i--){
+            for(var j=6;j>=i;j--){
+                if(cellInGrid[i][j].classList.contains(RED_CLASS)){
+
+                }
+            }
+        }
+        */
+        cell.classList.add(currentPlayer);
+
 }
+    
 
 
 function switchTurns(){
